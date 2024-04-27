@@ -1,0 +1,11 @@
+{
+    "channel_names": {
+        "0": "T1",
+        "1": "CT"
+    },
+    "labels": {
+        "1": 0
+    },
+    "numTraining": 257,
+    "file_ending": "target"
+}
