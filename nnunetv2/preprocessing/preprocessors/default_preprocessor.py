@@ -14,7 +14,7 @@
 import multiprocessing
 import shutil
 from time import sleep
-from typing import Tuple
+from typing import Tuple, Union
 
 import numpy as np
 from batchgenerators.utilities.file_and_folder_operations import *
@@ -28,7 +28,7 @@ from nnunetv2.utilities.dataset_name_id_conversion import maybe_convert_to_datas
 from nnunetv2.utilities.find_class_by_name import recursive_find_python_class
 from nnunetv2.utilities.plans_handling.plans_handler import PlansManager, ConfigurationManager
 from nnunetv2.utilities.utils import get_filenames_of_train_images_and_targets
-
+from typing import Union
 
 class DefaultPreprocessor(object):
     def __init__(self, verbose: bool = True):
@@ -268,8 +268,8 @@ class DefaultPreprocessor(object):
 def example_test_case_preprocessing():
     # (paths to files may need adaptations)
     plans_file = '/home/isensee/drives/gpu_data/nnUNet_preprocessed/Dataset219_AMOS2022_postChallenge_task2/nnUNetPlans.json'
-    dataset_json_file = '/home/isensee/drives/gpu_data/nnUNet_preprocessed/Dataset219_AMOS2022_postChallenge_task2/dataset.json'
-    input_images = ['/home/isensee/drives/e132-rohdaten/nnUNetv2/Dataset219_AMOS2022_postChallenge_task2/imagesTr/amos_0600_0000.nii.gz', ]  # if you only have one channel, you still need a list: ['case000_0000.nii.gz']
+    dataset_json_file = '/Users/samanthahughes/nnUNet/nnunetv2/nnuNet_raw/Dataset011_LS/dataset.json'
+    input_images = ['/Users/samanthahughes/nnUNet/nnunetv2/nnuNet_raw/Dataset011_LS/ImagesTr', ]  # if you only have one channel, you still need a list: ['case000_0000.nii.gz']
 
     configuration = '3d_fullres'
     pp = DefaultPreprocessor()

@@ -42,7 +42,7 @@ def convert_msd_dataset(source_folder: str, overwrite_target_id: Optional[int] =
                         num_processes: int = default_num_processes) -> None:
     if source_folder.endswith('/') or source_folder.endswith('\\'):
         source_folder = source_folder[:-1]
-
+    print(join(source_folder, 'labelsTr'))
     labelsTr = join(source_folder, 'labelsTr')
     imagesTs = join(source_folder, 'imagesTs')
     imagesTr = join(source_folder, 'imagesTr')
@@ -53,8 +53,11 @@ def convert_msd_dataset(source_folder: str, overwrite_target_id: Optional[int] =
     assert isfile(dataset_json), f"dataset.json missing in source_folder"
 
     # infer source dataset id and name
-    task, dataset_name = os.path.basename(source_folder).split('_')
-    task_id = int(task[4:])
+    s2 = '/Users/samanthahughes/nnUNet/nnunetv2/nnuNet_raw/Dataset011_LS'
+    print(os.path.basename(s2))
+    task, dataset_name = os.path.basename(s2).split('_')
+    #task_id = int(task[4:])
+    task_id = 11
 
     # check if target dataset id is taken
     target_id = task_id if overwrite_target_id is None else overwrite_target_id
@@ -75,7 +78,7 @@ def convert_msd_dataset(source_folder: str, overwrite_target_id: Optional[int] =
         results = []
 
         # convert 4d train images
-        source_images = [i for i in subfiles(imagesTr, suffix='.nii.gz', join=False) if
+        source_images = [i for i in subfiles(imagesTr, suffix='.mha', join=False) if
                          not i.startswith('.') and not i.startswith('_')]
         source_images = [join(imagesTr, i) for i in source_images]
 
@@ -86,7 +89,7 @@ def convert_msd_dataset(source_folder: str, overwrite_target_id: Optional[int] =
         )
 
         # convert 4d test images
-        source_images = [i for i in subfiles(imagesTs, suffix='.nii.gz', join=False) if
+        source_images = [i for i in subfiles(imagesTs, suffix='.mha', join=False) if
                          not i.startswith('.') and not i.startswith('_')]
         source_images = [join(imagesTs, i) for i in source_images]
 
@@ -97,7 +100,7 @@ def convert_msd_dataset(source_folder: str, overwrite_target_id: Optional[int] =
         )
 
         # copy segmentations
-        source_images = [i for i in subfiles(labelsTr, suffix='.nii.gz', join=False) if
+        source_images = [i for i in subfiles(labelsTr, suffix='.mha', join=False) if
                          not i.startswith('.') and not i.startswith('_')]
         for s in source_images:
             shutil.copy(join(labelsTr, s), join(target_labelsTr, s))
@@ -129,4 +132,4 @@ def entry_point():
 
 
 if __name__ == '__main__':
-    convert_msd_dataset('/home/fabian/Downloads/Task05_Prostate', overwrite_target_id=201)
+    convert_msd_dataset('/Users/samanthahughes/nnUNet/nnunetv2/nnuNet_raw/Dataset011_LS/source', overwrite_target_id=201)

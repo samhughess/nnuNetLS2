@@ -31,7 +31,7 @@ class NibabelIO(BaseReaderWriter):
     supported_file_endings = [
         '.nii.gz',
         '.nrrd',
-        '.mha'
+        '.target'
     ]
 
     def read_images(self, image_fnames: Union[List[str], Tuple[str, ...]]) -> Tuple[np.ndarray, dict]:
@@ -109,7 +109,7 @@ class NibabelIOWithReorient(BaseReaderWriter):
     supported_file_endings = [
         '.nii.gz',
         '.nrrd',
-        '.mha'
+        '.target'
     ]
 
     def read_images(self, image_fnames: Union[List[str], Tuple[str, ...]]) -> Tuple[np.ndarray, dict]:

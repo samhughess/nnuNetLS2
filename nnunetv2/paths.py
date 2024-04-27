@@ -17,10 +17,15 @@ import os
 """
 PLEASE READ paths.md FOR INFORMATION TO HOW TO SET THIS UP
 """
+#actual code
+#nnUNet_raw = os.environ.get('nnUNet_raw')
+#nnUNet_preprocessed = os.environ.get('nnUNet_preprocessed')
+#nnUNet_results = os.environ.get('nnUNet_results')
 
-nnUNet_raw = os.environ.get('nnUNet_raw')
-nnUNet_preprocessed = os.environ.get('nnUNet_preprocessed')
-nnUNet_results = os.environ.get('nnUNet_results')
+nnUNet_raw= '/Users/samanthahughes/nnUNet/nnunetv2/nnuNet_raw'
+nnUNet_preprocessed = '/Users/samanthahughes/nnUNet/nnunetv2/nnuNet_preprocessed'
+nnUNet_results = '/Users/samanthahughes/nnUNet/nnunetv2/nnuNet_results'
+
 
 if nnUNet_raw is None:
     print("nnUNet_raw is not defined and nnU-Net can only be used on data for which preprocessed files "

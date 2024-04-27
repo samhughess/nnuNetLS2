@@ -2,7 +2,6 @@ from typing import Tuple
 
 from batchgenerators.utilities.file_and_folder_operations import save_json, join
 
-
 def generate_dataset_json(output_folder: str,
                           channel_names: dict,
                           labels: dict,
@@ -101,3 +100,11 @@ def generate_dataset_json(output_folder: str,
     dataset_json.update(kwargs)
 
     save_json(dataset_json, join(output_folder, 'dataset.json'), sort_keys=False)
+
+output_folder = "/Users/samanthahughes/nnUNet/nnunetv2/nnuNet_raw/Dataset011_LS"
+channel_names = {0: 'T1', 1:'CT'}
+labels= {1: 0}
+num_training_cases= 257
+file_ending= "target"
+
+generate_dataset_json(output_folder, channel_names, labels, num_training_cases, file_ending)
