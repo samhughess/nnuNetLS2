@@ -14,21 +14,21 @@
 import multiprocessing
 import shutil
 from time import sleep
-from typing import Tuple, Union
-
-import numpy as np
-from batchgenerators.utilities.file_and_folder_operations import *
-from tqdm import tqdm
+from typing import Union, Tuple
 
 import nnunetv2
+import numpy as np
+from batchgenerators.utilities.file_and_folder_operations import *
 from nnunetv2.paths import nnUNet_preprocessed, nnUNet_raw
 from nnunetv2.preprocessing.cropping.cropping import crop_to_nonzero
 from nnunetv2.preprocessing.resampling.default_resampling import compute_new_shape
 from nnunetv2.utilities.dataset_name_id_conversion import maybe_convert_to_dataset_name
 from nnunetv2.utilities.find_class_by_name import recursive_find_python_class
 from nnunetv2.utilities.plans_handling.plans_handler import PlansManager, ConfigurationManager
-from nnunetv2.utilities.utils import get_filenames_of_train_images_and_targets
-from typing import Union
+from nnunetv2.utilities.utils import get_identifiers_from_splitted_dataset_folder, \
+    create_lists_from_splitted_dataset_folder, get_filenames_of_train_images_and_targets
+from tqdm import tqdm
+
 
 class DefaultPreprocessor(object):
     def __init__(self, verbose: bool = True):
@@ -41,7 +41,7 @@ class DefaultPreprocessor(object):
                      plans_manager: PlansManager, configuration_manager: ConfigurationManager,
                      dataset_json: Union[dict, str]):
         # let's not mess up the inputs!
-        data = data.astype(np.float32)  # this creates a copy
+        data = np.copy(data)
         if seg is not None:
             assert data.shape[1:] == seg.shape[1:], "Shape mismatch between image and segmentation. Please fix your dataset and make use of the --verify_dataset_integrity flag to ensure everything is correct"
             seg = np.copy(seg)
@@ -268,8 +268,8 @@ class DefaultPreprocessor(object):
 def example_test_case_preprocessing():
     # (paths to files may need adaptations)
     plans_file = '/home/isensee/drives/gpu_data/nnUNet_preprocessed/Dataset219_AMOS2022_postChallenge_task2/nnUNetPlans.json'
-    dataset_json_file = '/Users/samanthahughes/nnUNet/nnunetv2/nnuNet_raw/Dataset011_LS/dataset.json'
-    input_images = ['/Users/samanthahughes/nnUNet/nnunetv2/nnuNet_raw/Dataset011_LS/ImagesTr', ]  # if you only have one channel, you still need a list: ['case000_0000.nii.gz']
+    dataset_json_file = '/home/isensee/drives/gpu_data/nnUNet_preprocessed/Dataset219_AMOS2022_postChallenge_task2/dataset.json'
+    input_images = ['/home/isensee/drives/e132-rohdaten/nnUNetv2/Dataset219_AMOS2022_postChallenge_task2/imagesTr/amos_0600_0000.nii.gz', ]  # if you only have one channel, you still need a list: ['case000_0000.nii.gz']
 
     configuration = '3d_fullres'
     pp = DefaultPreprocessor()
