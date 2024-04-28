@@ -24,6 +24,7 @@ default_trained_models = tuple([
 
 
 def filter_available_models(model_dict: Union[List[dict], Tuple[dict, ...]], dataset_name_or_id: Union[str, int]):
+    print(model_dict)
     valid = []
     for trained_model in model_dict:
         plans_manager = PlansManager(join(nnUNet_preprocessed, maybe_convert_to_dataset_name(dataset_name_or_id),
@@ -325,7 +326,7 @@ def accumulate_crossval_results_entry_point():
 
 
 if __name__ == '__main__':
-    find_best_configuration(4,
+    find_best_configuration(11,
                             default_trained_models,
                             True,
                             8,

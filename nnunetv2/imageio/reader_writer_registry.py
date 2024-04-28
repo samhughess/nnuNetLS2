@@ -19,7 +19,6 @@ LIST_OF_IO_CLASSES = [
     NibabelIOWithReorient
 ]
 
-
 def determine_reader_writer_from_dataset_json(dataset_json_content: dict, example_file: str = None,
                                               allow_nonmatching_filename: bool = False, verbose: bool = True
                                               ) -> Type[BaseReaderWriter]:
